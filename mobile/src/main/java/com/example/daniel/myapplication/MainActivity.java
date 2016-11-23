@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 
@@ -23,6 +24,12 @@ import com.example.daniel.myapplication.fragments.SlideshowFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Fragment mainFragment;
+    private Fragment cameraFragment;
+    private Fragment galleryFragment;
+    private Fragment slideshowFragment;
+    private Fragment manageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +56,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fm = getFragmentManager();
-        fm.beginTransaction().replace(R.id.content_frame, new MainFragment()).commit();
+        mainFragment = new MainFragment();
+        cameraFragment = new CameraFragment();
+        galleryFragment = new GalleryFragment();
+        slideshowFragment = new SlideshowFragment();
+        manageFragment = new ManageFragment();
+
+        getFragmentManager().beginTransaction().replace(R.id.content_frame, mainFragment).commit();
     }
 
     @Override
@@ -90,16 +102,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fm = getFragmentManager();
 
         if (id == R.id.nav_camera) {
-            fm.beginTransaction().replace(R.id.content_frame, new CameraFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, cameraFragment).commit();
         } else if (id == R.id.nav_gallery) {
-            fm.beginTransaction().replace(R.id.content_frame, new GalleryFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, galleryFragment).commit();
         } else if (id == R.id.nav_slideshow) {
-            fm.beginTransaction().replace(R.id.content_frame, new SlideshowFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, slideshowFragment).commit();
         } else if (id == R.id.nav_manage) {
-            fm.beginTransaction().replace(R.id.content_frame, new ManageFragment()).commit();
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, manageFragment).commit();
         } else if (id == R.id.nav_share) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
