@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.FragmentManager;
+import android.content.Intent;
 
 import com.example.daniel.myapplication.fragments.CameraFragment;
 import com.example.daniel.myapplication.fragments.GalleryFragment;
@@ -100,7 +101,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
             fm.beginTransaction().replace(R.id.content_frame, new ManageFragment()).commit();
         } else if (id == R.id.nav_share) {
-
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Dies ist ein sehr sinnvoller Text. Kauft mehr Katzen.");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         } else if (id == R.id.nav_send) {
 
         }
